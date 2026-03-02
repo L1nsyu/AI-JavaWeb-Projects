@@ -43,9 +43,9 @@ public class DeptController {
 */
 
     /*
-    * 删除部门 - 方式2:@RequestParam
-    * 注意事项:一旦声明了@RequestParam,该参数在请求时必须传递,如果不传递将会报错 (默认required为true)
-    * */
+     * 删除部门 - 方式2:@RequestParam
+     * 注意事项:一旦声明了@RequestParam,该参数在请求时必须传递,如果不传递将会报错 (默认required为true)
+     * */
 /*
     @DeleteMapping("/depts")
     public Result delete(@RequestParam("id") Integer deptId) {
@@ -63,6 +63,45 @@ public class DeptController {
     public Result delete(Integer id) {
         System.out.println("根据Id删除部门:" + id);
         deptService.deleteById(id);
+        return Result.success();
+    }
+
+
+    /*
+     * 新增部门
+     * */
+    @PostMapping("/depts")
+    public Result add(@RequestBody Dept dept) {
+        System.out.println("新增部门：" + dept);
+        deptService.add(dept);
+        return Result.success();
+    }
+
+    /*
+     * 根据id查询部门
+     * */
+/*
+    @GetMapping("/depts/{id}")
+    public Result getInfo(@PathVariable("id") Integer deptId) {
+        System.out.println("根据id查询部门:"+deptId);
+        return Result.success();
+    }
+*/
+
+    @GetMapping("/depts/{id}")
+    public Result getInfo(@PathVariable Integer id) {
+        System.out.println("根据id查询部门:" + id);
+        Dept dept = deptService.getById(id);
+        return Result.success(dept);
+    }
+
+    /*
+    * 修改部门
+    * */
+    @PutMapping("/depts")
+    public Result update(@RequestBody Dept dept) {
+        System.out.println("修改部门:" + dept);
+        deptService.update(dept);
         return Result.success();
     }
 
